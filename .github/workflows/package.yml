@@ -1,0 +1,30 @@
+name: Package Skill
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create staging directory
+        run: |
+          mkdir cedar-metadata-migrator
+          rsync -a --exclude='README.md' --exclude='.git' --exclude='.github' ./ cedar-metadata-migrator/
+
+      - name: Create zip archive
+        run: zip -r cedar-metadata-migrator.zip cedar-metadata-migrator/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }}
+          files: cedar-metadata-migrator.zip
