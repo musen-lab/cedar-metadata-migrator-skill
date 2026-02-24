@@ -21,7 +21,7 @@ jobs:
           rsync -a --exclude='README.md' --exclude='.git' --exclude='.github' ./ cedar-metadata-migrator/
 
       - name: Create zip archive
-        run: zip -r cedar-metadata-migrator.zip cedar-metadata-migrator/
+        run: cd cedar-metadata-migrator && zip -r ../cedar-metadata-migrator.zip .
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
