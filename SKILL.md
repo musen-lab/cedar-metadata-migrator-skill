@@ -1,5 +1,5 @@
 ---
-name: cedar-metadata-harmonizer
+name: cedar-metadata-migrator
 description: >
   Transform legacy metadata records into compliant versions that adhere to a CEDAR metadata
   template specification. Use this skill whenever the user asks to transform, migrate, harmonize,
@@ -10,7 +10,7 @@ description: >
   value correction, and produces a processing log for human review.
 ---
 
-# CEDAR Metadata Harmonizer
+# CEDAR Metadata Migrator
 
 Transform legacy metadata records so they comply with a target CEDAR template specification.
 The agent autonomously fetches the template, analyzes each record, resolves field values
