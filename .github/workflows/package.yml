@@ -18,7 +18,7 @@ jobs:
       - name: Create staging directory
         run: |
           mkdir cedar-metadata-migrator
-          rsync -a --exclude='README.md' --exclude='.git' --exclude='.github' ./ cedar-metadata-migrator/
+          rsync -a --exclude='README.md' --exclude='.git' --exclude='.github' --exclude='cedar-metadata-migrator' ./ cedar-metadata-migrator/
 
       - name: Create zip archive
         run: cd cedar-metadata-migrator && zip -r ../cedar-metadata-migrator.zip .
