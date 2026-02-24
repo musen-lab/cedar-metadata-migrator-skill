@@ -61,6 +61,11 @@ compliant record plus a processing log.
   always attempt a BioPortal lookup. Use the standardized label and IRI from the lookup,
   not the raw legacy value.
 - **Format fidelity**: Output format matches input format. JSON in → JSON out. CSV in → CSV out.
+- **Null, not empty string**: When a field's value cannot be determined, resolved, or inferred,
+  always set it to `null` — never use an empty string `""`. This applies to all field types:
+  ontology lookups with no match, missing values that can't be inferred, and any other case
+  where the agent cannot produce a confident value. Empty strings are ambiguous and can cause
+  downstream validation issues; `null` clearly signals "no value available."
 - **Non-destructive**: Legacy fields that don't map to any template field are recorded in the
   processing log under an Unmapped Fields section, so no data is silently dropped. The output
   file contains only template-compliant fields.

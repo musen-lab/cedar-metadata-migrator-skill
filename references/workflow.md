@@ -58,7 +58,7 @@ If the field has `permissible_values`:
 3. From the results, pick the best match — prefer exact label matches, then partial matches.
 4. Output the **standardized label only** (plain string). Do not include the ontology IRI
    in the output record — IRIs are recorded in the processing log for traceability.
-5. If no good match is found, keep the original value and flag it in the log.
+5. If no good match is found, set the value to `null` (not `""`) and flag it in the log.
 
 ### 4b. Datatype Enforcement
 
@@ -97,8 +97,8 @@ When a field exists in the template but has no corresponding legacy value:
    - Example: if `sex` is missing but `isolate` contains `"female_donor_42"`, infer `"Female"`.
    - Example: if `tissue` is missing but `disease` is `"hepatocellular carcinoma"`, infer `"liver"`.
 2. If inferable, fill it in and flag as `INFERRED` in the log.
-3. If not inferable and the field is required, flag as `MISSING_REQUIRED` in the log.
-4. If not inferable and the field is optional, leave empty and note as `MISSING_OPTIONAL` in the log.
+3. If not inferable and the field is required, set to `null` and flag as `MISSING_REQUIRED` in the log.
+4. If not inferable and the field is optional, set to `null` and note as `MISSING_OPTIONAL` in the log.
 
 ## Step 5: Assemble Output
 
@@ -111,7 +111,8 @@ ontology-constrained fields use the standardized label as a simple string, not a
 object. Ontology IRIs are recorded only in the processing log for traceability.
 
 Values must conform to the field's declared datatype: strings as strings, numbers as
-bare numbers (no embedded units), booleans as `true`/`false`.
+bare numbers (no embedded units), booleans as `true`/`false`. Unresolved or missing
+values must be `null`, never empty strings `""`.
 
 ```json
 {
